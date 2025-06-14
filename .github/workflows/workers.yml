@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          sparse-checkout: github-artifacts-proxy
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
