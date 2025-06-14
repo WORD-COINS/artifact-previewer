@@ -107,17 +107,18 @@ const main = async () => {
   window.location.href = blobUrl;
 };
 
-
-const elm = document.getElementById("result");
-if (elm) {
+(async () => {
+  const elm = document.getElementById("result");
+  if (elm) {
     elm.innerText = "処理中です……";
-}
+  }
 
-const error = await main();
-if (error) {
+  const error = await main();
+  if (error) {
     if (elm) {
-        elm.innerText = error;
+      elm.innerText = error;
     } else {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
+})();
