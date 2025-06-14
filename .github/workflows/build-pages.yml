@@ -15,6 +15,7 @@ jobs:
         with:
           node-version-file: app/.node-version
           cache: npm
+          cache-dependency-path: app/package-lock.json
       - name: build
         env:
           BASE_PATH: "/${{ github.event.repository.name }}"
