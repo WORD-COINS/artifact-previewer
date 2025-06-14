@@ -11,9 +11,12 @@
 		"enabled": true,
 	},
 
-	/**
-	 * Environment Variables
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-	 */
-	"vars": { "OWNER_NAME": "oka4shi", "CORS_ORIGIN": "http://localhost:5173" },
+	"env": {
+		"local": {
+			"vars": { "OWNER_NAME": "oka4shi", "CORS_ORIGIN": "http://localhost:5173" },
+		},
+		"production": {
+			"vars": { "OWNER_NAME": "oka4shi", "CORS_ORIGIN": "https://oka4shi.github.io" },
+		},
+	},
 }
