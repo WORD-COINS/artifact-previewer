@@ -1,3 +1,4 @@
+name: Deploy Cloudflare Workers
 on:
   push:
     branches: main
@@ -5,12 +6,12 @@ on:
 jobs:
   deploy:
     steps:
-      uses: cloudflare/wrangler-action@v3
-      with:
-        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        workingDirectory: "github-artifacts-proxy"
-        environment: production
-        secrets: |
-          GITHUB_TOKEN
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: "github-artifacts-proxy"
+          environment: production
+          secrets: |
+            GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
