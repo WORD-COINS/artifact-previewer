@@ -1,12 +1,9 @@
 import { downloadFile, fetchDownloadUrl } from "./lib/fetch";
 
 const main = async () => {
-    const params = new URLSearchParams(window.location.search);
-
-    const url = params.get("dist") ?? "";
-    if (!url) {
-        return "URLが指定されていません";
-    }
+    const workerUrl =
+        import.meta.env.VITE_WORKER_URL || "http://localhost:8787";
+    const url = new URL(window.location.search, workerUrl).toString();
 
     const result = await fetchDownloadUrl(url);
     if (!result.ok) {
