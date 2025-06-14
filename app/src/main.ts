@@ -5,18 +5,18 @@ const main = async () => {
 
   const url = params.get("dist") ?? "";
   if (!url) {
-      return "URLが指定されていません";
+    return "URLが指定されていません";
   }
 
   const result = await fetchDownloadUrl(url);
   if (!result.ok) {
-      return result.message;
+    return result.message;
   }
 
   const downloadUrl = result.value;
   const result1 = await downloadFile(downloadUrl);
   if (!result1.ok) {
-      return result1.message;
+    return result1.message;
   }
 
   const buf = result1.value;
@@ -31,7 +31,7 @@ const main = async () => {
     }
   }
   if (eocdOffset === -1) {
-    return "zipファイルの解析に失敗しました（End of central directory recordが見つかりません）"
+    return "zipファイルの解析に失敗しました（End of central directory recordが見つかりません）";
   }
 
   // EOCDの中身を取得
@@ -68,7 +68,7 @@ const main = async () => {
 
   // 現在は圧縮されていないときのみ対応
   if (metadata.compressionMethod !== 0) {
-      return `サポートされていない圧縮方式です: ${metadata.compressionMethod}`;
+    return `サポートされていない圧縮方式です: ${metadata.compressionMethod}`;
   }
 
   const fileNameBinary = new Uint8Array(
@@ -88,7 +88,7 @@ const main = async () => {
     }
   }
   if (headerOffset === -1) {
-      return "zipファイルの解析に失敗しました（Local file headerが見つかりません）";
+    return "zipファイルの解析に失敗しました（Local file headerが見つかりません）";
   }
 
   // ファイルを取得
