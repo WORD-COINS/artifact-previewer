@@ -1,6 +1,4 @@
-export type Result<T> =
-    | { ok: true; value: T }
-    | { ok: false; message: string; error?: Error };
+import type { Result } from "common/util";
 
 export const fetchDownloadUrl = async (
     url: string,

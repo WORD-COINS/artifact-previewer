@@ -1,4 +1,5 @@
 import type { DownloadParams } from "common/github-download-artifacts";
+import type { Result } from "common/util";
 
 export interface Env {
     GITHUB_TOKEN: string;
@@ -66,10 +67,6 @@ export default {
         });
     },
 } satisfies ExportedHandler<Env>;
-
-type Result<T> =
-    | { ok: true; value: T }
-    | { ok: false; message: string; error?: Error; status?: number };
 
 const fetchDownloadUrl = async (
     token: string,
