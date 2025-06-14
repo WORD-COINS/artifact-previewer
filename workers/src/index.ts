@@ -1,5 +1,5 @@
-import type { DownloadParams } from "common/github-download-artifacts";
 import type { Result } from "common/util";
+import type { DownloadParams } from "common/github-download-artifacts";
 
 export interface Env {
     GITHUB_TOKEN: string;
@@ -35,9 +35,9 @@ export default {
         const params = new URLSearchParams(new URL(request.url).search);
 
         const apiParams: DownloadParams = {
-            owner: params.get("owner") ?? "",
-            repo: params.get("repo") ?? "",
-            artifact_id: params.get("artifact_id") ?? "",
+            owner: encodeURIComponent(params.get("owner") ?? ""),
+            repo: encodeURIComponent(params.get("repo") ?? ""),
+            artifact_id: encodeURIComponent(params.get("artifact_id") ?? ""),
             archive_format: "zip",
         };
 
