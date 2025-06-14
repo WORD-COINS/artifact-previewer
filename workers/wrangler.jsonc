@@ -3,20 +3,26 @@
  * https://developers.cloudflare.com/workers/wrangler/configuration/
  */
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "github-artifacts-proxy",
-	"main": "src/index.ts",
-	"compatibility_date": "2025-06-06",
-	"observability": {
-		"enabled": true,
-	},
+    "$schema": "node_modules/wrangler/config-schema.json",
+    "name": "github-artifacts-proxy",
+    "main": "src/index.ts",
+    "compatibility_date": "2025-06-06",
+    "observability": {
+        "enabled": true,
+    },
 
-	"env": {
-		"local": {
-			"vars": { "OWNER_NAME": "oka4shi", "CORS_ORIGIN": "http://localhost:5173" },
-		},
-		"production": {
-			"vars": { "OWNER_NAME": "oka4shi", "CORS_ORIGIN": "https://oka4shi.github.io" },
-		},
-	},
+    "env": {
+        "local": {
+            "vars": {
+                "OWNER_NAME": "oka4shi",
+                "CORS_ORIGIN": "http://localhost:5173",
+            },
+        },
+        "production": {
+            "vars": {
+                "OWNER_NAME": "oka4shi",
+                "CORS_ORIGIN": "https://oka4shi.github.io",
+            },
+        },
+    },
 }

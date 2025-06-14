@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: process.env.BASE_PATH || undefined,
+    base: process.env.BASE_PATH || undefined,
 });
