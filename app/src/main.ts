@@ -97,11 +97,11 @@ const main = async () => {
         metadata.compressedSize - 1,
     );
 
-    // blobに変換して遷移
-    const blob = new Blob([fileData], { type: "application/pdf" });
-    const blobUrl = window.URL.createObjectURL(blob);
+    // Fileに変換して遷移
+    const file = new File([fileData], fileName, { type: "application/pdf" });
+    const fileUrl = window.URL.createObjectURL(file);
     history.pushState(null, "", `?dist=${encodeURIComponent(url)}`);
-    window.location.href = blobUrl;
+    window.location.href = fileUrl;
 };
 
 (async () => {
