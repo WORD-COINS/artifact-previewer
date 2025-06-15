@@ -100,8 +100,17 @@ const main = async () => {
     // blobに変換して遷移
     const blob = new Blob([fileData], { type: "application/pdf" });
     const blobUrl = window.URL.createObjectURL(blob);
-    history.pushState(null, "", `?dist=${encodeURIComponent(url)}`);
-    window.location.href = blobUrl;
+
+    const a = document.getElementById(
+        "download-link",
+    ) as HTMLAnchorElement | null;
+    if (a) {
+        a.href = blobUrl;
+        a.download = fileName;
+        a.click();
+    } else {
+        return "ファイルを開けません";
+    }
 };
 
 (async () => {
