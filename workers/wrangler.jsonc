@@ -14,14 +14,14 @@
     "env": {
         "local": {
             "vars": {
-                "OWNER_NAME": "oka4shi",
+                "OWNER_NAME": "WORD-COINS",
                 "CORS_ORIGIN": "http://localhost:5173",
             },
         },
         "production": {
             "vars": {
-                "OWNER_NAME": "oka4shi",
-                "CORS_ORIGIN": "https://oka4shi.github.io",
+                "OWNER_NAME": "WORD-COINS",
+                "CORS_ORIGIN": "https://word-coins.github.io",
             },
         },
     },
