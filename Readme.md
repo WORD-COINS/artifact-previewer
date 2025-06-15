@@ -47,7 +47,7 @@ GitHub Actionsで自動でビルドされ、Cloudflare Workersにデプロイさ
 
 ## 使い方
 
-`https://<GitHubユーザー名>.github.io/github-artifact-viewer/?owner=<GitHubユーザー名>&repo=<リポジトリ名>&artifact_id=<アーティファクトID>`にアクセスする。
+`https://<GitHubユーザー名>.github.io/artifact-viewer/?owner=<GitHubユーザー名>&repo=<リポジトリ名>&artifact_id=<アーティファクトID>`にアクセスする。
 
 現在の制約として、Artifactの中身にはpdfが1ファイルだけ含まれている必要があります。
 また、Artifactのcompression-levelは`0`である必要があります。
