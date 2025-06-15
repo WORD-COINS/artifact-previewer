@@ -100,8 +100,14 @@ const main = async () => {
     // blobに変換して遷移
     const blob = new Blob([fileData], { type: "application/pdf" });
     const blobUrl = window.URL.createObjectURL(blob);
-    history.pushState(null, "", `?dist=${encodeURIComponent(url)}`);
-    window.location.href = blobUrl;
+    const newWindow = window.open(blobUrl);
+    if (!newWindow) {
+        return "ファイルが開けませんでした";
+    }
+    newWindow.onload = () => {
+        newWindow.document.title = fileName;
+    }
+
 };
 
 (async () => {
