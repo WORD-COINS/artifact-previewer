@@ -23,9 +23,7 @@ npmのworkspaceを使用しています。
 
 ### workers
 
-GitHub Actionsで自動でビルドされ、Cloudflare Workersにデプロイされます。
-
-**Reposiitory secrets**に以下の変数を設定してください。
+1. **Reposiitory secrets**に以下の変数を設定してください。
 
 | Name                  | Value                                                                              |
 | --------------------- | ---------------------------------------------------------------------------------- |
@@ -33,17 +31,19 @@ GitHub Actionsで自動でビルドされ、Cloudflare Workersにデプロイさ
 | CLOUDFLARE_API_TOKEN  | CloudflareのAPIトークン (Workersの編集権限が必要)                                  |
 | WORKER_GITHUB_TOKEN   | GitHubのトークン (Actionsの読み取り権限がついたfine-grained personal access token) |
 
-また、`workers/wrangler.jsonc`の`env`セクションを適切に設定してください。
+2. workers/wrangler.jsoncを編集して、`env`セクションを適切に設定してください。
+
+3. GitHub Actionsで自動でビルドされ、Cloudflare Workersにデプロイされます。
 
 ### app
 
-- GitHub Actionsで自動でビルドされ、GitHub Pagesにデプロイされます。
+1. **Reposiitory variables**に以下の変数を設定してください。
 
-**Reposiitory variables**に以下の変数を設定してください。
+| Name            | Value                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------- |
+| VITE_WORKER_URL | ワーカーのURL (例: `https://artifact-viewer-worker-production.username.workers.dev` ) |
 
-| Name            | Value                                        |
-| --------------- | -------------------------------------------- |
-| VITE_WORKER_URL | ワーカーのURL (例: https://_._.workers.dev ) |
+2. GitHub Actionsで自動でビルドされ、GitHub Pagesにデプロイされます。
 
 ## 使い方
 
