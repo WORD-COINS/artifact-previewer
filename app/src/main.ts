@@ -117,7 +117,6 @@ const main = async () => {
     // blobに変換して遷移
     const blob = new Blob([fileData], { type: "application/pdf" });
     const blobUrl = window.URL.createObjectURL(blob);
-    history.pushState(null, "", `?dist=${encodeURIComponent(url)}`);
     window.location.href = blobUrl;
 };
 
@@ -128,6 +127,7 @@ const main = async () => {
     }
 
     const error = await main();
+
     if (error) {
         if (elm) {
             elm.innerText = error;
