@@ -80,11 +80,6 @@ const main = async () => {
         relativeLocalHeaderOffset: view.getUint32(offset + 42, true),
     };
 
-    // 現在は圧縮されていないときのみ対応
-    if (metadata.compressionMethod !== 0) {
-        return `サポートされていない圧縮方式です: ${metadata.compressionMethod}`;
-    }
-
     const fileNameBinary = new Uint8Array(
         buf,
         offset + 46,
@@ -111,11 +106,35 @@ const main = async () => {
     const fileData = new Uint8Array(
         buf,
         fileDataOffset,
-        metadata.compressedSize - 1,
+        metadata.compressedSize,
     );
 
+    console.log("Compression Method: ", metadata.compressionMethod);
+    let decompressedFile: BlobPart;
+    switch (metadata.compressionMethod) {
+        case 0:
+            // 現在は圧縮されていないときはそのまま
+            decompressedFile = fileData;
+            break;
+        case 8:
+            // deflate圧縮されている場合はDecompressionStreamで解凍
+            const zipBlob = new Blob([fileData]);
+            const stream: ReadableStream<Uint8Array> = zipBlob.stream();
+            const compressedStream = stream.pipeThrough(
+                new DecompressionStream("deflate-raw"),
+            );
+
+            const res = new Response(compressedStream);
+
+            decompressedFile = await res.blob();
+
+            break;
+        default:
+            return `サポートされていない圧縮方式です: ${metadata.compressionMethod}`;
+    }
+
     // blobに変換して遷移
-    const blob = new Blob([fileData], { type: "application/pdf" });
+    const blob = new Blob([decompressedFile], { type: "application/pdf" });
     const blobUrl = window.URL.createObjectURL(blob);
     window.location.href = blobUrl;
 };
