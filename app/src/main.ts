@@ -113,7 +113,7 @@ const main = async () => {
     let decompressedFile: BlobPart;
     switch (metadata.compressionMethod) {
         case 0:
-            // 現在は圧縮されていないときはそのまま
+            // 圧縮されていないときはそのまま
             decompressedFile = fileData;
             break;
         case 8:
@@ -125,7 +125,6 @@ const main = async () => {
             );
 
             const res = new Response(compressedStream);
-
             decompressedFile = await res.blob();
 
             break;
