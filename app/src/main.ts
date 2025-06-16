@@ -1,3 +1,4 @@
+import "./style.css";
 import { downloadFile, fetchDownloadUrl } from "./lib/fetch";
 
 const main = async () => {
@@ -10,13 +11,29 @@ const main = async () => {
         return result.message;
     }
 
+    const progressBar = document.getElementById("progress");
+    const status = document.getElementById("result");
+
     const downloadUrl = result.value;
-    const result1 = await downloadFile(downloadUrl);
+    const result1 = await downloadFile(downloadUrl, (progress) => {
+        if (progress < 0) {
+            return;
+        }
+
+        if (progressBar) {
+            progressBar.setAttribute("value", String(progress));
+            progressBar.innerText = `${Math.floor(progress * 100)}%`;
+        }
+        if (status) {
+            status.innerText = `ファイルをダウンロードしています……: ${Math.floor(progress * 100)}%`;
+        }
+    });
+
     if (!result1.ok) {
         return result1.message;
     }
 
-    const buf = result1.value;
+    const buf = await result1.value.arrayBuffer();
     const view = new DataView(buf);
 
     // end of central directory record(EOCD)を探す
@@ -100,7 +117,6 @@ const main = async () => {
     // blobに変換して遷移
     const blob = new Blob([fileData], { type: "application/pdf" });
     const blobUrl = window.URL.createObjectURL(blob);
-    history.pushState(null, "", `?dist=${encodeURIComponent(url)}`);
     window.location.href = blobUrl;
 };
 
@@ -111,6 +127,7 @@ const main = async () => {
     }
 
     const error = await main();
+
     if (error) {
         if (elm) {
             elm.innerText = error;
