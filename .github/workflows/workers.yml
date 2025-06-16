@@ -17,9 +17,6 @@ jobs:
           wranglerVersion: "4.19.1"
           workingDirectory: "workers"
           environment: production
-          # ↓初回にworkerのプロジェクトを作成するために必要
-          preCommands: |
-            wrangler deploy --env production
           secrets: |
             GITHUB_TOKEN
         env:
