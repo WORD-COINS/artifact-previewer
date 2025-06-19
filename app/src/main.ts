@@ -86,23 +86,20 @@ const main = async () => {
         metadata.fileNameLength,
     );
     const fileName = new TextDecoder().decode(fileNameBinary);
-    console.log("File Name:", fileName);
+    console.log("File Name: ", fileName);
 
-    // local file headerを探す
-    let headerOffset = -1;
-    for (let i = 0; i < offset; i++) {
-        if (view.getUint32(i, true) === 0x04034b50) {
-            headerOffset = i;
-            break;
-        }
-    }
-    if (headerOffset === -1) {
+    // local file headerを取得
+    const localFileHeaderOffset = metadata.relativeLocalHeaderOffset;
+    if (view.getUint32(localFileHeaderOffset, true) !== 0x04034b50) {
         return "zipファイルの解析に失敗しました（Local file headerが見つかりません）";
     }
 
     // ファイルを取得
     const fileDataOffset =
-        headerOffset + 30 + metadata.fileNameLength + metadata.extraFieldLength;
+        localFileHeaderOffset +
+        30 +
+        metadata.fileNameLength +
+        metadata.extraFieldLength;
     const fileData = new Uint8Array(
         buf,
         fileDataOffset,
